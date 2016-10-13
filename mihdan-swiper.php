@@ -82,7 +82,7 @@ function mihdan_swiper_enqueue_scripts() {
 			      grabCursor: true,
 			      nextButton: '.swiper-button-next',
 			      prevButton: '.swiper-button-prev',
-			      effect: 'fade',
+			      //effect: 'fade',
 			      //mousewheelControl: true,
 			      keyboardControl: true,
 			      hashnav: true,
@@ -95,7 +95,6 @@ function mihdan_swiper_enqueue_scripts() {
 JS;
 		
 		wp_add_inline_script( 'swiper', $js );
-		
 	}
 }
 add_action( 'wp_enqueue_scripts', 'mihdan_swiper_enqueue_scripts' );
