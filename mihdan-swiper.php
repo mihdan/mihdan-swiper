@@ -2,6 +2,7 @@
 /**
  * Plugin Name: Mihdan: Swiper
  * Description: Расширяет дефолтную галерею WordPress при помощи Swiper.JS
+ * Version: 1.0.1
  */
 
 function mihdan_swiper_post_gallery( $output, $attr ) {
