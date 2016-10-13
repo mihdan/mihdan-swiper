@@ -60,7 +60,13 @@ add_action( 'after_setup_theme', 'mihdan_swiper_setup_theme' );
  * Добавить стили и скрипты от Swiper
  */
 function mihdan_swiper_enqueue_scripts() {
-	if ( is_single() ) {
+	global $post;
+
+	if( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'gallery') ) {
+		//wp_enqueue_script( 'my-script');
+	//}
+
+	//if ( is_single() ) {
 		wp_enqueue_style( 'swiper', plugins_url( 'assets/css/swiper.min.css', __FILE__ ) );
 		wp_enqueue_style( 'mihdan-swiper', plugins_url( 'assets/css/mihdan-swiper-style.css', __FILE__ ) );
 		wp_enqueue_script( 'swiper', plugins_url( 'assets/js/swiper.jquery.min.js', __FILE__ ), ['jquery'], null, true );
