@@ -1,8 +1,24 @@
 <?php
 /**
+ * Mihdan: Swiper
+ *
+ * @package     mihdan-swiper
+ * @author      Mikhail Kobzarev
+ * @link http://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present
+ * @link hhttps://www.kobzarev.com/projects/mihdan-swiper/
+ * @copyright   2016 mihdan
+ * @license     GPL-2.0+
+ *
+ * @wordpress-plugin
  * Plugin Name: Mihdan: Swiper
+ * Plugin URI: https://github.com/mihdan/mihdan-swiper
  * Description: Расширяет дефолтную галерею WordPress при помощи Swiper.JS
  * Version: 1.0.1
+ * Author:      Mikhail Kobzarev
+ * Author URI:  https://www.kobzarev.com/
+ * Text Domain: mihdan-swiper
+ * License:     GPL-2.0+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 function mihdan_swiper_post_gallery( $output, $attr ) {
