@@ -70,7 +70,7 @@ add_filter( 'use_default_gallery_style', '__return_false' );
  * Включить поддержку галерей
  */
 function mihdan_swiper_setup_theme() {
-	add_theme_support( 'html5', ['gallery'] );
+	add_theme_support( 'html5', array( 'gallery' ) );
 }
 add_action( 'after_setup_theme', 'mihdan_swiper_setup_theme' );
 
@@ -87,7 +87,7 @@ function mihdan_swiper_enqueue_scripts() {
 	//if ( is_single() ) {
 		wp_enqueue_style( 'swiper', plugins_url( 'assets/css/swiper.min.css', __FILE__ ) );
 		wp_enqueue_style( 'mihdan-swiper', plugins_url( 'assets/css/mihdan-swiper-style.css', __FILE__ ) );
-		wp_enqueue_script( 'swiper', plugins_url( 'assets/js/swiper.jquery.min.js', __FILE__ ), ['jquery'], null, true );
+		wp_enqueue_script( 'swiper', plugins_url( 'assets/js/swiper.jquery.min.js', __FILE__ ), array( 'jquery' ), null, true );
 		
 		$js = <<<JS
 			jQuery( function( $ ) {			    
