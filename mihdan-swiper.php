@@ -13,7 +13,7 @@
  * Plugin Name: Mihdan: Swiper
  * Plugin URI: https://github.com/mihdan/mihdan-swiper
  * Description: Расширяет дефолтную галерею WordPress при помощи Swiper.JS
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author:      Mikhail Kobzarev
  * Author URI:  https://www.kobzarev.com/
  * Text Domain: mihdan-swiper
@@ -21,11 +21,6 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * GitHub Plugin URI: https://github.com/mihdan/mihdan-swiper
  */
-
-function mihdan_swiper_post_gallery( $output, $attr ) {
-	return $output;
-}
-add_filter( 'post_gallery', 'mihdan_swiper_post_gallery', 10, 2 );
 
 /**
  * Поправим вывод тегов
@@ -55,7 +50,7 @@ add_filter( 'shortcode_atts_gallery', 'mihdan_swiper_shortcode_atts_gallery' );
  */
 function mihdan_swiper_gallery_style( $output ) {
 
-	$output = str_replace( 'gallery ', 'gallery swiper-container ', $output );
+	$output = str_replace( 'gallery ', 'gallery mihdan-swiper-container ', $output );
 
 	return $output;
 }
@@ -80,32 +75,27 @@ add_action( 'after_setup_theme', 'mihdan_swiper_setup_theme' );
 function mihdan_swiper_enqueue_scripts() {
 	global $post;
 
-	if( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'gallery') ) {
-		//wp_enqueue_script( 'my-script');
-	//}
+	if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'gallery' ) ) {
 
-	//if ( is_single() ) {
 		wp_enqueue_style( 'swiper', plugins_url( 'assets/css/swiper.min.css', __FILE__ ) );
 		wp_enqueue_style( 'mihdan-swiper', plugins_url( 'assets/css/mihdan-swiper-style.css', __FILE__ ) );
 		wp_enqueue_script( 'swiper', plugins_url( 'assets/js/swiper.jquery.min.js', __FILE__ ), array( 'jquery' ), null, true );
-		
+
 		$js = <<<JS
 			jQuery( function( $ ) {			    
-			    $('.swiper-container')
+			    $('.mihdan-swiper-container')
 			    	.wrapInner('<div class="swiper-wrapper"></div>')
-			    	.append('<div class="swiper-pagination"></div>')
-			    	.append('<div class="swiper-button-prev"></div>')
-			    	.append('<div class="swiper-button-next"></div>')
-			    	//.find('.gallery-item')
-			    	//.addClass('swiper-slide');
+			    	.append('<div class="mihdan-swiper-pagination"></div>')
+			    	.append('<div class="mihdan-swiper-button-prev"></div>')
+			    	.append('<div class="mihdan-swiper-button-next"></div>');
 			    	
 			  var swiper = new Swiper ('.swiper-container', {
 			      loop: true,
-			      pagination: '.swiper-pagination',
+			      pagination: '.mihdan-swiper-pagination',
 			      paginationClickable: true,
 			      grabCursor: true,
-			      nextButton: '.swiper-button-next',
-			      prevButton: '.swiper-button-prev',
+			      nextButton: '.mihdan-swiper-button-next',
+			      prevButton: '.mihdan-swiper-button-prev',
 			      //effect: 'fade',
 			      //mousewheelControl: true,
 			      keyboardControl: true,
@@ -117,8 +107,10 @@ function mihdan_swiper_enqueue_scripts() {
 			  })  
 			});
 JS;
-		
+
 		wp_add_inline_script( 'swiper', $js );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'mihdan_swiper_enqueue_scripts' );
+
+// eof;
