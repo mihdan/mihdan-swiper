@@ -1,4 +1,4 @@
-# mihdan-swiper
+# Mihdan: Swiper
 
 ![mihdan-swiper](mihdan-swiper.jpg)
 
