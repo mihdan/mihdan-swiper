@@ -13,7 +13,7 @@
  * Plugin Name: Mihdan: Swiper
  * Plugin URI: https://github.com/mihdan/mihdan-swiper
  * Description: Расширяет дефолтную галерею WordPress при помощи Swiper.JS
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author:      Mikhail Kobzarev
  * Author URI:  https://www.kobzarev.com/
  * Text Domain: mihdan-swiper
@@ -81,32 +81,46 @@ function mihdan_swiper_enqueue_scripts() {
 		wp_enqueue_style( 'mihdan-swiper', plugins_url( 'assets/css/mihdan-swiper-style.css', __FILE__ ) );
 		wp_enqueue_script( 'swiper', plugins_url( 'assets/js/swiper.jquery.min.js', __FILE__ ), array( 'jquery' ), null, true );
 
+		// Аргументы для свайпера
+		$args = array(
+			'loop'                => true,
+			'pagination'          => '.mihdan-swiper-pagination',
+			'paginationClickable' => true,
+			'grabCursor'          => true,
+			'nextButton'          => '.mihdan-swiper-button-next',
+			'prevButton'          => '.mihdan-swiper-button-prev',
+			//'effect' => 'fade',
+			//'mousewheelControl' => true,
+			'keyboardControl'     => true,
+			'hashnav'             => true,
+			//'autoHeight' => true
+			'setWrapperSize'      => true,
+			'slideClass'          => 'gallery-item',
+			'height'              => 480,
+		);
+
+		// Позволяем менять настройки свайпера другим
+		$args = apply_filters( 'mihdan_swiper_args', $args );
+
 		$js = <<<JS
 			jQuery( function( $ ) {			    
-			    $('.mihdan-swiper-container')
-			    	.wrapInner('<div class="swiper-wrapper"></div>')
-			    	.append('<div class="mihdan-swiper-pagination"></div>')
-			    	.append('<div class="mihdan-swiper-button-prev"></div>')
-			    	.append('<div class="mihdan-swiper-button-next"></div>');
+			    $( '.mihdan-swiper-container' )
+			    	.wrapInner( '<div class="swiper-wrapper"></div>' )
+			    	.append( '<div class="mihdan-swiper-pagination"></div>' )
+			    	.append( '<div class="mihdan-swiper-button-prev"></div>' )
+			    	.append( '<div class="mihdan-swiper-button-next"></div>' );
 			    	
-			  var swiper = new Swiper ('.swiper-container', {
-			      loop: true,
-			      pagination: '.mihdan-swiper-pagination',
-			      paginationClickable: true,
-			      grabCursor: true,
-			      nextButton: '.mihdan-swiper-button-next',
-			      prevButton: '.mihdan-swiper-button-prev',
-			      //effect: 'fade',
-			      //mousewheelControl: true,
-			      keyboardControl: true,
-			      hashnav: true,
-			      //autoHeight: true
-			      setWrapperSize: true,
-			      slideClass: 'gallery-item',
-			      height: 480
-			  })  
-			});
+			  var swiper = new Swiper ( '.swiper-container', %s );  
+			} );
 JS;
+
+		// Передаём аргументы из PHP в JS
+		$js = vsprintf(
+			$js,
+			array(
+				json_encode( $args ),
+			)
+		);
 
 		wp_add_inline_script( 'swiper', $js );
 	}
