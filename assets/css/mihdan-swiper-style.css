@@ -1,6 +1,7 @@
-.gallery img {
-    width: 638px;
-    height: 480px;
-    -o-object-fit: cover;
-    object-fit: cover;
+.mihdan-gallery-item img {
+	width: 638px;
+	height: 480px !important;
+	-o-object-fit: cover;
+	object-fit: cover;
+	max-width: none;
 }
